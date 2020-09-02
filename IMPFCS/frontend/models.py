@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class UserInfo(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, default='')
     MALE = '男'
     FEMALE = '女'
@@ -29,9 +29,9 @@ class UserInfo(models.Model):
         (JISUANJI, '计算机系'),
         (ZIDONGHUA, '自动化系'),
     )
-    department = models.CharField(max_length=10, choices=DEP_CHOICES, default=MISSING)
+    # department = models.CharField(max_length=10, choices=DEP_CHOICES, default='')
     studentClass = models.CharField(max_length=6, default='')
-    
+
     is_teamMember = models.BooleanField(default=False)
     is_applyingTeam = models.BooleanField(default=False)
     applyTeamTime = models.DateTimeField(null=True)
@@ -72,7 +72,7 @@ class UserInfo(models.Model):
         (DANGYUAN, '党员'),
     )
     politicalBackground = models.CharField(max_length=4, choices=PB_CHOICES, default=MISSING)
-    #GPA_Rank = models.CharField(max_length=100, default='')  #json
+    # GPA_Rank = models.CharField(max_length=100, default='')  #json
     GPA_Rank = [models.CharField(max_length=100, default=''), models.CharField(max_length=100, default='')]
     phoneNum = models.CharField(max_length=20, default='')
     address = models.CharField(max_length=50, default='')
@@ -81,6 +81,3 @@ class UserInfo(models.Model):
     @staticmethod
     def fields():
         return set(BasicInfo._meta.get_all_field_names()).difference({'user', 'user_id', 'id'})
-
-
- 
