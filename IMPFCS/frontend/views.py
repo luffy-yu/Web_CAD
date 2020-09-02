@@ -229,7 +229,7 @@ def login(req):
         uf = UserForm()
         ps = PassForm()
     # return render_to_response('frontend/login.html',{'uf':uf},{'ps':ps})
-    return render_to_response('frontend/login.html', {'uf': uf, 'ps': ps})
+    return render_to_response(req, 'frontend/login.html', {'uf': uf, 'ps': ps})
 
 
 @csrf_exempt
@@ -309,7 +309,7 @@ def page(req):
     else:
         uf = UserForm()
         ps = PassForm()
-    return render_to_response('frontend/loginfront.html', {'uf': uf, 'ps': ps})
+    return render_to_response(req, 'frontend/loginfront.html', {'uf': uf, 'ps': ps})
 
 
 # 登录之后跳转页

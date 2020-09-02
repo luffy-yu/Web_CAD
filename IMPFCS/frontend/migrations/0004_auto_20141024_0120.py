@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('phoneNum', models.CharField(default=b'', max_length=20)),
                 ('address', models.CharField(default=b'', max_length=50)),
                 ('work', models.CharField(default=b'', max_length=200)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
             },
