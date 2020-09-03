@@ -286,14 +286,15 @@ def page(req):
             # 把获取表单的用户名传递给session对象
             #	req.session['password'] = password
             # req.session['username'] = username
-            conn = pymongo.MongoClient("127.0.0.1", 27017)
-            db = conn.biocad
-            psidq = db.register.find({"user": username, "password": password})
+            # conn = pymongo.MongoClient("127.0.0.1", 27017)
+            # db = conn.biocad
+            # psidq = db.register.find({"user": username, "password": password})
             ## print psidq
             # print "1"
-            if psidq.count() != 0:
-                psids = psidq[0]  # 即使只有一条满足条件的记录也要这么取
-                vistorid = int(psids["vistorid"])
+            if True:  # psidq.count() != 0:
+                # psids = psidq[0]  # 即使只有一条满足条件的记录也要这么取
+                # vistorid = int(psids["vistorid"])
+                vistorid = -1
                 req.session["login"] = "true"
                 # print "vistorid"
                 # print vistorid
@@ -992,6 +993,7 @@ def handle_upflowfile(f):
 
 
 def flow_db_setup():
+    return
     up_file = open('flow.txt')
     conn = pymongo.MongoClient("127.0.0.1", 27017)
     db = conn.demo
