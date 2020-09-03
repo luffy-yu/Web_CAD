@@ -269,7 +269,7 @@ def register(req):
     else:
         uf = UserForm()
         ps = PassForm()
-    return render_to_response('frontend/register.html', {'uf': uf, 'ps': ps})
+    return render_to_response(req, 'frontend/register.html', {'uf': uf, 'ps': ps})
 
 
 @csrf_exempt
@@ -304,7 +304,7 @@ def page(req):
                 # return render_to_response('frontend/loginerror.html')
                 uf = UserForm()
                 ps = PassForm()
-                return render_to_response('frontend/loginfront.html',
+                return render_to_response(req, 'frontend/loginfront.html',
                                           {'uf': uf, 'ps': ps, "info": "wrong answer or username,please try again"})
     else:
         uf = UserForm()
@@ -316,7 +316,7 @@ def page(req):
 def indexpage(req):
     req.session.set_expiry(0)
     username = req.session.get('username', 'anybody') + req.session.get('password', '123456')
-    return render_to_response('frontend/test.html', {'username': username})
+    return render_to_response(req, 'frontend/test.html', {'username': username})
 
 
 # 注销动作
@@ -446,12 +446,12 @@ def ccc(request):  # 专门处理json数据的函数
 
 
 def ajax(request):
-    return render_to_response('frontend/ajax.html')
+    return render_to_response(request, 'frontend/ajax.html')
 
 
 @csrf_exempt
 def adjust(request):
-    return render_to_response('frontend/adjust.html')
+    return render_to_response(request, 'frontend/adjust.html')
 
 
 # if request.method == 'POST':
@@ -502,7 +502,7 @@ def ddd(request):
 
 
 def post(request):
-    return render_to_response('frontend/post.html')
+    return render_to_response(request, 'frontend/post.html')
 
 
 @csrf_exempt
@@ -1064,7 +1064,7 @@ def upload(request):
         # return  HttpResponse(json.dumps(data))
     else:
         form = UploadFileForm()
-    return render_to_response('frontend/post.html')
+    return render_to_response(request, 'frontend/post.html')
 
 
 def handle_uploaded_file(f):
