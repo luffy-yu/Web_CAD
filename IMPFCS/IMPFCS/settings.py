@@ -10,8 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -21,11 +21,13 @@ SECRET_KEY = '!lo5w32f_jn&_w#(w@du8cmpm*6i#_2crdv%9ho02u$wxbe6og'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+APPEND_SLASH=False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '0.0.0.0'
+]
 
 # Application definition
 
@@ -43,15 +45,18 @@ AUTHENTICATION_BACKENDS = ('frontend.authBackend.THUAuthBackend',)
 
 LOGIN_URL = '/site/login'
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+]
 
 ROOT_URLCONF = 'IMPFCS.urls'
 
@@ -61,8 +66,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-#SESSION_ENGINE = 'mongoengine.django.sessions'
-#SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 DATABASES = {
     'default': {
@@ -71,15 +76,15 @@ DATABASES = {
     }
 }
 
-#import json
-#config = json.load(open('config.json'))
-#MONGO_DATABASE_NAME = config['database_name'] 
-#MONGO_HOST = config['database_host']
-#MONGO_PORT = config['database_port']
-#MONGO_USERNAME = config['database_username']
-#MONGO_PASSWORD = config['database_password']
-#import mongoengine
-#mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT, username=MONGO_USERNAME, password=MONGO_PASSWORD)
+# import json
+# config = json.load(open('config.json'))
+# MONGO_DATABASE_NAME = config['database_name']
+# MONGO_HOST = config['database_host']
+# MONGO_PORT = config['database_port']
+# MONGO_USERNAME = config['database_username']
+# MONGO_PASSWORD = config['database_password']
+# import mongoengine
+# mongoengine.connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT, username=MONGO_USERNAME, password=MONGO_PASSWORD)
 
 
 # Internationalization
@@ -95,8 +100,24 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    }
+]
